@@ -8,6 +8,7 @@ import jobType from "./jobType.png";
 import salary from "./salary.png";
 import experience from "./experienceicon.png";
 import onsite from "./onsite.png";
+import down from "./down.png";
 
 export const cityList = ["Chennai", "Bengaluru", "Pune", "Coimbatore"];
 
@@ -22,6 +23,7 @@ export const assets = {
   salary,
   experience,
   onsite,
+  down,
 };
 
 export const menuLinks = [

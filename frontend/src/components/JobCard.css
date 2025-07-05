@@ -16,7 +16,9 @@
 
 .jobLogo {
   /* Frame 48102900 */
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
 
   width: 83.46px;
@@ -31,6 +33,14 @@
   margin-top: 16px; /* Adjust this value for spacing */
   margin-left: 16px;
   margin-right: auto; /* Center horizontally inside .jobCard */
+}
+
+.jobLogoImg {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  /* or 'contain', see below */
+  /* border-radius: 10px; optional, for rounded corners */
 }
 
 .jobTime {

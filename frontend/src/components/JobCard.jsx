@@ -15,7 +15,7 @@ const JobCard = ({
   return (
     <div className="jobCard">
       <div className="jobLogo">
-        <img src={logo} />
+        <img className="jobLogoImg" src={logo} />
       </div>
       <div className="jobTime">
         <div className="jobTimeText">{time}</div>
