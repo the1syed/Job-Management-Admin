@@ -6,7 +6,7 @@ import RangeSlider from "./Slider";
 
 // ...imports and assets
 
-const Navbar = () => {
+const Navbar = ({ onCreateJobClick }) => {
   const [jobTypeOpen, setJobTypeOpen] = useState(false);
   const [jobType, setJobType] = useState("Job Type");
   const [locationTypeOpen, setlocationTypeOpen] = useState(false);
@@ -60,7 +60,7 @@ const Navbar = () => {
               {/* ...menu items as before */}
             </div>
             <div className="createjobbox">
-              <button className="createjobinner">
+              <button onClick={onCreateJobClick} className="createjobinner">
                 <span className="create-text">Create Job</span>
                 <span className="login-text">Login</span>
               </button>
@@ -161,7 +161,7 @@ const Navbar = () => {
           </div>
           {/* SALARY */}
           <div className="salarySlider">
-            <div >
+            <div>
               <div className="salary-labelText">Salary Per Month </div>
             </div>
             <div className="salary-label">

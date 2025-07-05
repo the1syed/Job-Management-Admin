@@ -12,3 +12,9 @@
 * {
   font-family: "Satoshi-Variable";
 }
+
+.blurred-bg {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+}
