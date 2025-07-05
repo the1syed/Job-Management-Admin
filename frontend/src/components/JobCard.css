@@ -12,7 +12,6 @@
   flex: none;
   order: 0;
   flex-grow: 0;
-  border: 1px solid black;
 }
 
 .jobLogo {
@@ -63,8 +62,7 @@
   width: 55px;
   height: 19px;
   text-wrap: nowrap;
-
-  font-family: "Satoshi Variable", sans-serif;
+  font-family: "Satoshi-Variable";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -87,8 +85,9 @@
   height: 27px;
   left: 16px;
   top: 117px;
+  text-wrap: nowrap;
 
-  font-family: "Satoshi Variable";
+  font-family: "Satoshi-Variable";
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
@@ -161,7 +160,7 @@
   height: 22px;
   text-wrap: nowrap;
 
-  font-family: "Satoshi Variable", sans-serif;
+  font-family: "Satoshi-Variable";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -174,5 +173,204 @@
   /* Inside auto layout */
   flex: none;
   order: 1;
+  flex-grow: 0;
+}
+
+.onsite {
+  /* Frame 48102938 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 4px;
+
+  width: 70px;
+  height: 22px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.onsiteicon {
+  /* Frame 48102937 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.863636px;
+  gap: 8.64px;
+
+  width: 19px;
+  height: 16.41px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.onsiteText {
+  /* Onsite */
+
+  width: 47px;
+  height: 22px;
+  font-family: "Satoshi-Variable";
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  /* identical to box height */
+  text-align: center;
+
+  color: #5a5a5a;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.salary {
+  /* Frame 48102940 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding: 0px;
+  gap: 4px;
+
+  width: 66.18px;
+  height: 22px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+.salaryicon {
+  /* Frame 48102939 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0.909091px;
+  gap: 9.09px;
+
+  width: 18.18px;
+  height: 20px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.salaryText {
+  /* 12LPA */
+
+  width: 44px;
+  height: 22px;
+  text-wrap: nowrap;
+
+  font-family: "Satoshi-Variable";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  /* identical to box height */
+  text-align: center;
+
+  color: #5a5a5a;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.jobdesc {
+  /* A user-friendly interface lets you browse stunning photos and videos Filter destinations based on interests and travel style, and create personalized */
+
+  position: absolute;
+  width: 300px;
+  height: 76px;
+  left: 9px;
+  top: 202px;
+
+  font-family: "Satoshi-Variable";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+
+  color: #555555;
+}
+
+.jobdesc ul {
+  padding-left: 20px;
+  list-style-type: disc;
+  margin: 0;
+}
+
+.jobdesc li {
+  font-family: "Satoshi-Variable";
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.applybutton {
+  /* Frame 48102944 */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 10px;
+  gap: 10px;
+
+  position: absolute;
+  width: 284px;
+  height: 46px;
+  left: calc(50% - 284px / 2);
+  top: 298px;
+
+  background: #00aaff;
+  border: 1px solid #00aaff;
+  box-shadow: 0px 0px 14px rgba(93, 93, 93, 0.15);
+  border-radius: 10px;
+}
+
+.applybuttontext {
+  /* Apply Now */
+
+  width: 81px;
+  height: 22px;
+
+  font-family: "Satoshi-Variable";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  /* identical to box height */
+  text-align: center;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
   flex-grow: 0;
 }

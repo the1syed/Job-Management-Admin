@@ -9,7 +9,7 @@ const Navbar = () => {
       <div className="navbar">
         <div className="menubar">
           <div className="innermenu">
-            <Link to="/">
+            <Link to="/" className="logo-link" >
               <img className="logo" src={assets.logo} alt="Logo" />
             </Link>
             <div className="menuoptions ">
@@ -78,11 +78,11 @@ const Navbar = () => {
           <div className="verticalline"></div>
           <div className="filter-item">
             <img className="jobtypeicon" src={assets.jobType} alt="Job Type" />
-            <span className="filter-label">Job type</span>
+            <span className="jobtypeText">Job type</span>
             {/* Optionally, a dropdown here */}
           </div>
           <div className="filter-item salary-slider">
-            <span className="filter-label">Salary Per Month</span>
+            <span className="salaryText">Salary Per Month</span>
             <input type="range" min={50000} max={80000} />
             <span className="salary-label">₹50k - ₹80k</span>
           </div>
