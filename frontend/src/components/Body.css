@@ -1,0 +1,40 @@
+/* Assignemnt */
+/* Assignemnt */
+/* 
+position: relative;
+width: 1440px;
+height: 1024px;
+
+background: #FBFBFF; */
+
+.body {
+  width: 1440px;
+  height: 1024px;
+  top: 0px;
+  margin: 0 auto;
+  background: #fbfbff;
+}
+
+.jobCardOuter {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center horizontally */
+  justify-content: space-evenly;
+  gap: 16px; /* distance between child elements */
+  padding-top: 40px; /* optional spacing from top */
+}
+
+.jobCardUpper {
+  display: flex;
+  flex-direction: row;
+  align-items: normal;
+  justify-content: flex-start;
+  background: #fbfbff;
+  gap: 16px;
+  width: 1312px;
+  height: 360px;
+
+  /* center horizontally */
+  margin-left: auto;
+  margin-right: auto;
+}

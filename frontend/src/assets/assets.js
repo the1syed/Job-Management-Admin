@@ -5,6 +5,9 @@ import teslaLogo from "./Tesla.png";
 import searchicon from "./searchicon.png";
 import location from "./location.png";
 import jobType from "./jobType.png";
+import salary from "./salary.png";
+import experience from "./experienceicon.png";
+import onsite from "./onsite.png";
 
 export const cityList = ["Chennai", "Bengaluru", "Pune", "Coimbatore"];
 
@@ -16,6 +19,9 @@ export const assets = {
   searchicon,
   jobType,
   location,
+  salary,
+  experience,
+  onsite,
 };
 
 export const menuLinks = [

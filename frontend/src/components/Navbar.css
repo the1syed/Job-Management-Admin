@@ -1,3 +1,6 @@
+/* font santoshi */
+/* logo size */
+
 .navbar {
   position: relative;
   width: 1440px;
@@ -35,7 +38,8 @@
   width: 44px;
   height: 44.68px;
   left: 0px;
-  top: 1.66px;
+  top: 0px;
+  object-fit: cover;
 }
 
 .menuoptions {
@@ -86,7 +90,7 @@
   width: 44px;
   height: 22px;
 
-  /* font-family: "Satoshi Variable", sans-serif; */
+  font-family: "Satoshi-Variable", sans-serif;
 
   font-style: normal;
   font-weight: 600;
@@ -372,7 +376,7 @@
   border-radius: 30px;
   color: white;
   white-space: nowrap;
-  /* font-family: "Satoshi Variable", sans-serif; */
+  /* font-family: Satoshi Variable, sans-serif; */
 
   font-style: normal;
   font-weight: 600;
@@ -414,7 +418,7 @@
   left: 109px;
   top: 155px;
 
-  font-family: "Satoshi Variable", sans-serif;
+  font-family: Satoshi Variable, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -428,6 +432,11 @@
 /* Search By Job Title, Role */
 
 .plocation {
+  color: #686868;
+  font-size: 16px;
+  font-family: Satoshi Variable, sans-serif;
+  font-weight: 500;
+  word-wrap: break-word;
 }
 
 .jobtypeicon {
@@ -466,25 +475,6 @@
   position: relative;
   top: 123px; /* adjust as needed */
   left: 0;
-}
-
-.plocation {
-  /* Preferred Location */
-
-  width: 134px;
-  height: 22px;
-  left: 453px;
-  top: 155px;
-
-  /* font-family: "Satoshi Variable"; */
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 22px;
-  /* identical to box height */
-  text-align: center;
-
-  color: #686868;
 }
 
 .filter-item {

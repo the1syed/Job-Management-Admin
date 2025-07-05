@@ -1,0 +1,178 @@
+.jobCard {
+  /* Frame 57 */
+  position: relative;
+  width: 316px;
+  height: 360px;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 14px rgba(211, 211, 211, 0.15);
+  border-radius: 12px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  border: 1px solid black;
+}
+
+.jobLogo {
+  /* Frame 48102900 */
+
+  box-sizing: border-box;
+
+  width: 83.46px;
+  height: 82px;
+  left: calc(50% - 83.46px / 2 - 100.27px);
+  top: calc(50% - 82px / 2 - 123px);
+
+  background: linear-gradient(180deg, #fefefd 0%, #f1f1f1 100%);
+  border: 1px solid #ffffff;
+  box-shadow: 0px 0px 10.25px rgba(148, 148, 148, 0.25);
+  border-radius: 13.1786px;
+  margin-top: 16px; /* Adjust this value for spacing */
+  margin-left: 16px;
+  margin-right: auto; /* Center horizontally inside .jobCard */
+}
+
+.jobTime {
+  /* Frame 48102943 */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 7px 10px;
+  gap: 10px;
+
+  width: 75px;
+  height: 33px;
+  left: 222px;
+  top: 16px;
+
+  background: #b0d9ff;
+  border-radius: 10px;
+  margin-top: -78px;
+  margin-left: 222px;
+}
+
+.jobTimeText {
+  /* 24h Ago */
+
+  width: 55px;
+  height: 19px;
+  text-wrap: nowrap;
+
+  font-family: "Satoshi Variable", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+  text-align: center;
+
+  color: #000000;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.jobTitle {
+  /* Full Stack Developer */
+  position: absolute;
+  width: 190px;
+  height: 27px;
+  left: 16px;
+  top: 117px;
+
+  font-family: "Satoshi Variable";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 27px;
+  /* identical to box height */
+  text-align: center;
+
+  color: #000000;
+}
+
+.exp-sal-ons {
+  /* Frame 48102941 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 16px;
+
+  position: absolute;
+  width: 263.08px;
+  height: 22px;
+  left: 16px;
+  top: 160px;
+}
+
+.experience {
+  /* Frame 48102936 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 4px;
+
+  width: 94.9px;
+  height: 22px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.experienceicon {
+  /* Frame 48102935 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.9px;
+  gap: 9px;
+
+  width: 18.9px;
+  height: 15.3px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.experiencetext {
+  /* 1-3 yr Exp */
+
+  width: 72px;
+  height: 22px;
+  text-wrap: nowrap;
+
+  font-family: "Satoshi Variable", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  /* identical to box height */
+  text-align: center;
+
+  color: #5a5a5a;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
