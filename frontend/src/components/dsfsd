@@ -1,0 +1,15 @@
+
+.createjobtext {
+  /* Frame 46 */
+
+  width: 75px;
+  height: 22px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+
+import '@fontsource/inter';

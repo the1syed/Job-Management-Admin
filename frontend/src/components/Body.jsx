@@ -10,7 +10,7 @@ const Body = () => {
         <div className="jobCardUpper">
           <JobCard
             logo={assets.amazonLogo}
-            time="2h Ago"
+            time="24h Ago"
             title="MERN Stack Developer"
             experience="2-4 yr Exp"
             jobType="Remote"
@@ -49,7 +49,7 @@ const Body = () => {
           />
           <JobCard
             logo={assets.amazonLogo}
-            time="2h Ago"
+            time="24h Ago"
             title="Full Stack Developer"
             experience="1-3 yr Exp"
             jobType="Onsite"
@@ -64,7 +64,7 @@ const Body = () => {
         <div className="jobCardUpper">
           <JobCard
             logo={assets.teslaLogo}
-            time="1d Ago"
+            time="24h Ago"
             title="Java Backend Developer"
             experience="3-5 yr Exp"
             jobType="Onsite"
@@ -90,7 +90,7 @@ const Body = () => {
           />
           <JobCard
             logo={assets.amazonLogo}
-            time="2h Ago"
+            time="24h Ago"
             title="Full Stack Developer"
             experience="1-3 yr Exp"
             jobType="Onsite"

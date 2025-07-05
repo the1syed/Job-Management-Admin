@@ -77,9 +77,14 @@
   top: 0px;
 
   border-radius: 12px;
+
+  /* box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.1); */
+
+  /* Smooth hover effect */
 }
 
 .homeinner {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -299,7 +304,7 @@
   position: absolute;
   width: 148px;
   height: 48px;
-  left: 481px;
+  left: 475px;
   top: 0px;
 
   border-radius: 12px;
@@ -329,7 +334,7 @@
   /* Overview */
   white-space: nowrap;
 
-  width: 65px;
+  width: 81px;
   height: 22px;
 
   /* font-family: "Satoshi-Variable"; */
@@ -371,7 +376,7 @@
 
 .createjobinner {
   /* Frame 29 */
-
+  overflow: hidden;
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -398,16 +403,28 @@
   flex-grow: 0;
 }
 
-.createjobtext {
-  /* Frame 46 */
+.create-text,
+.login-text {
+  position: absolute;
+  transition: transform 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
 
-  width: 75px;
-  height: 22px;
+.create-text {
+  transform: translateY(0);
+}
 
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+.login-text {
+  transform: translateY(100%);
+}
+
+.createjobinner:hover .create-text {
+  transform: translateY(-70px);
+}
+
+.createjobinner:hover .login-text {
+  transform: translateY(0);
 }
 
 .searchicon {
@@ -549,10 +566,50 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  
 }
 
 .salary-label {
+  /* Salary Per Month */
+
+  position: absolute;
+  width: 126px;
+  height: 22px;
+  left: 1098px;
+  top: 128px;
+
+  font-family: "Satoshi-Variable";
+  font-style: normal;
+  font-weight: 600;
   font-size: 16px;
-  color: #686868;
-  margin-left: 8px;
+  line-height: 22px;
+  /* identical to box height */
+
+  color: #222222;
+}
+
+.homeinner,
+.findjobsinner,
+.findtalentinner,
+.aboutusinner,
+.testimonialsinner {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.createjobbox {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.createjobbox:hover {
+  transform: translateY(2px);
+  box-shadow: 0px 0px 3px 4px rgba(127, 127, 127, 0.05);
+}
+
+.homeinner:hover,
+.findjobsinner:hover,
+.findtalentinner:hover,
+.aboutusinner:hover,
+.testimonialsinner:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 3px 4px rgba(127, 127, 127, 0.05);
 }
