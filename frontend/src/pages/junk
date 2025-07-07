@@ -1,0 +1,1078 @@
+import React from "react";
+import "./Body.css";
+import JobCard from "./JobCard";
+import { assets } from "../assets/assets";
+
+function parseSalary(salaryStr) {
+  // Examples: "15 LPA", "10K INR", "50 LPA"
+  if (!salaryStr) return 0;
+
+  const lower = salaryStr.toLowerCase().trim();
+
+  if (lower.includes("lpa")) {
+    // LPA = Lakhs per annum
+    // Convert to INR per month: 1 LPA = 100000 INR / 12 months ≈ 8333.33
+    const num = parseFloat(lower.replace("lpa", "").trim());
+    return Math.round((num * 100000) / 12);
+  } else if (lower.includes("k")) {
+    // K INR = Thousand INR (assuming monthly)
+    const num = parseFloat(lower.replace("k", "").replace("inr", "").trim());
+    return Math.round(num * 1000);
+  } else {
+    // fallback if format unknown: parse number only
+    const num = parseFloat(lower.replace(/[^0-9.]/g, ""));
+    return isNaN(num) ? 0 : num;
+  }
+}
+
+
+const Body = ({ jobs, jobType, locationType, salary }) => {
+  return (
+    <div className="body">
+      <div className="jobCardOuter">
+        <div className="jobCardUpper">
+          {
+            jobs
+            .filter(
+              (job) => {
+                const jobSalary = parseSalary(job.salary);
+                return(
+                  (jobType === "Job Type" || job.jobType === jobType) &&
+                  (locationType === "Preferred Location" || job.location === locationType) &&
+                  (jobSalary >= salary[0] && jobSalary <= salary[1])
+                )
+              }
+            )
+            .map((job) => (
+              <JobCard
+                logo={assets[job.logo]}
+                time={job.time}
+                title={job.title}
+                experience={job.experience}
+                jobType={job.jobType}
+                salary={job.salary}
+                description={job.description}
+                onApplyClick={() => alert(`Applied to ${job.title}`)}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Body;
+
+
+import React from "react";
+import "./JobCard.css";
+import { assets } from "../assets/assets";
+
+const JobCard = ({
+  logo = assets.amazonLogo,
+  time = "24h Ago",
+  title = "Full Stack Developer",
+  experience = "1-3 yr Exp",
+  jobType = "Onsite",
+  salary = "12 LPA",
+  description = [],
+  onApplyClick,
+}) => {
+  return (
+    <div className="jobCard">
+      <div className="jobLogo">
+        <img className="jobLogoImg" src={logo} />
+      </div>
+      <div className="jobTime">
+        <div className="jobTimeText">{time}</div>
+      </div>
+      <div className="jobTitle"> {title}</div>
+      <div className="exp-sal-ons">
+        <div className="experience">
+          <div className="experinceicon">
+            <img src={assets.experience} />
+          </div>
+          <div className="experiencetext">{experience}</div>
+        </div>
+        <div className="onsite">
+          <div className="onsiteicon">
+            <img src={assets.onsite} />
+          </div>
+          <div className="onsiteText">{jobType}</div>
+        </div>
+        <div className="salary">
+          <div className="salaryicon">
+            <img src={assets.salary} />
+          </div>
+          <div className="salaryText">{salary}</div>
+        </div>
+      </div>
+      <div className="jobdesc">
+        <ul>
+          {description.map((point, index) => {
+            return <li key={index}>{point}</li>;
+          })}
+        </ul>
+      </div>
+      <button className="applybutton">
+        <div className="applybuttontext" onClick={()=>onApplyClick()}>Apply Now</div>
+      </button>
+    </div>
+  );
+};
+
+export default JobCard;
+
+
+
+import React, { useState } from "react";
+import "./Navbar.css";
+import { assets } from "../assets/assets";
+import { Link } from "react-router-dom";
+import RangeSlider from "./Slider";
+
+const LOCATION_OPTIONS = ["Preferred Location", "Remote", "Chennai", "Hyderabad", "Bangalore"];
+const JOB_TYPE_OPTIONS = ["Job Type", "FullTime", "PartTime", "Contract", "Internship"];
+
+
+const Navbar = ({ onCreateJobClick, jobType, setJobType, locationType, setLocationType, salary, setSalary }) => {
+  const [jobTypeOpen, setJobTypeOpen] = useState(false);
+  const [locationTypeOpen, setlocationTypeOpen] = useState(false);
+
+  return (
+    <header>
+      <div className="navbar">
+        <div className="menubar">
+          <div className="innermenu">
+            <Link to="/" className="logo-link">
+              <img className="logo" src={assets.logo} alt="Logo" />
+            </Link>
+            <div className="menuoptions">
+              <div className="homebox">
+                <div className="homeinner">
+                  <Link to="/" className="hometext">
+                    Home
+                  </Link>
+                </div>
+              </div>
+              <div className="findjobsbox">
+                <div className="findjobsinner">
+                  <div className="findjobstext">
+                    <Link to="/findjobs">Find Jobs</Link>
+                  </div>
+                </div>
+              </div>
+              <div className="findtalentbox">
+                <div className="findtalentinner">
+                  <div className="findtalenttext">
+                    <Link to="/findtalents">Find Talents</Link>
+                  </div>
+                </div>
+              </div>
+              <div className="aboutusbox">
+                <div className="aboutusinner">
+                  <div className="aboutustext">
+                    <Link to="/aboutus">About Us</Link>
+                  </div>
+                </div>
+              </div>
+              <div className="testimonialsbox">
+                <div className="testimonialsinner">
+                  <div className="testimonialstext">
+                    <Link to="/testimonial">Testimonial</Link>
+                  </div>
+                </div>
+              </div>
+              {/* ...menu items as before */}
+            </div>
+            <div className="createjobbox">
+              <button onClick={onCreateJobClick} className="createjobinner">
+                <span className="create-text">Create Job</span>
+                <span className="login-text">Login</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="filterbar">
+          {/* SEARCH BAR */}
+          <div className="filter-item search-filter">
+            <div className="searchBarWrapper">
+              <img
+                className="searchicon"
+                src={assets.searchicon}
+                alt="Search"
+              />
+              <input
+                className="searchBar"
+                type="text"
+                placeholder="Search By Job Title, Role"
+                default="Search By Job Title, Role"
+              />
+            </div>
+          </div>
+          <div className="verticalline"></div>
+          {/* LOCATION */}
+          <div className="filter-item">
+            <img
+              className="jobtypeicon"
+              src={assets.location}
+              alt="Preferred Location"
+            />
+            <div className="custom-dropdown">
+              <div
+                className="dropdown-toggleLocation"
+                onClick={() => setlocationTypeOpen((prev) => !prev)}
+              >
+                <span className="locationfont">{locationType}</span>
+                <img
+                  className="dropdown-icon"
+                  src={assets.down}
+                  alt="Down Arrow"
+                />
+              </div>
+              {locationTypeOpen && (
+                <ul className="dropdown-menu">
+                  {LOCATION_OPTIONS.map((type) => (
+                    <li
+                      key={type}
+                      onClick={() => {
+                        setLocationType(type);
+                        setlocationTypeOpen(false);
+                      }}
+                    >
+                      {type}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+
+          {/* JOB TYPE */}
+          <div className="filter-item">
+            <div className="verticalline"></div>
+            <img className="jobtypeicon" src={assets.jobType} alt="Job Type" />
+            <div className="custom-dropdown">
+              <div
+                className="dropdown-toggle"
+                onClick={() => setJobTypeOpen((prev) => !prev)}
+              >
+                <span className="jobfont">{jobType}</span>
+                <img
+                  className="dropdown-icon"
+                  src={assets.down}
+                  alt="Down Arrow"
+                />
+              </div>
+              {jobTypeOpen && (
+                <ul className="dropdown-menu">
+                  {JOB_TYPE_OPTIONS.map((type) => (
+                    <li
+                      key={type}
+                      onClick={() => {
+                        setJobType(type);
+                        setJobTypeOpen(false);
+                      }}
+                    >
+                      {type}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+
+          {/* SALARY */}
+
+
+          {/* SALARY */}
+          <div className="salarySlider">
+            <div>
+              <div className="salary-labelText">Salary Per Month</div>
+            </div>
+            <div className="salary-label">
+              <RangeSlider salary={salary} setSalary={setSalary} />
+            </div>
+          </div>
+          <div className="filter-item salary-slider">
+            <div className="verticallineSalary"></div>
+            <div className="salary-labelAmount">
+              ₹{(salary[0] / 1000).toFixed(0)}k - ₹{(salary[1] / 1000).toFixed(0)}k
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Navbar;
+
+
+
+import * as React from "react";
+import { styled, alpha, Box } from "@mui/system";
+import { Slider as BaseSlider, sliderClasses } from "@mui/base/Slider";
+
+// Props: salary = [min, max], setSalary = function to update salary range
+export default function RangeSlider({ salary, setSalary }) {
+  const handleChange = (event, newValue) => {
+    setSalary(newValue);
+  };
+
+  return (
+    <Box sx={{ width: 300 }}>
+      <StyledSlider
+        value={salary}
+        onChange={handleChange}
+        getAriaLabel={() => "Salary range"}
+        getAriaValueText={valueText}
+        min={10000}
+        max={500000}
+        step={10000}
+        valueLabelDisplay="auto"
+        disableSwap={false}
+      />
+    </Box>
+  );
+}
+
+// Show value as ₹ in K or L
+function valueText(value) {
+  return value >= 100000
+    ? `₹${(value / 100000).toFixed(1)}L`
+    : `₹${value / 1000}K`;
+}
+
+// ---- STYLING ----
+
+const StyledSlider = styled(BaseSlider)(
+  ({ theme }) => `
+  color: #000;
+  height: 2px;
+  width: 100%;
+  padding: 16px 0;
+  display: inline-flex;
+  position: relative;
+  touch-action: none;
+
+  &.${sliderClasses.disabled} {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  & .${sliderClasses.rail} {
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background-color: #ccc;
+  }
+
+  & .${sliderClasses.track} {
+    height: 4px;
+    border-radius: 4px;
+    background-color: #CCC2C2;
+  }
+
+  & .${sliderClasses.thumb} {
+    width: 16px;
+    height: 16px;
+    background-color: #000;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    cursor: grab;
+
+    &:hover {
+      box-shadow: 0 0 0 6px ${alpha("#007FFF", 0.2)};
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      background-color: white;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &.${sliderClasses.active} {
+      box-shadow: 0 0 0 8px ${alpha("#007FFF", 0.3)};
+      cursor: grabbing;
+    }
+  }
+
+  & .${sliderClasses.mark} {
+    display: none;
+  }
+`
+);
+
+
+
+import React, { useState, useEffect } from "react";
+
+// --- Modal Styles ---
+const modalStyles = `
+*{
+font-family:"Satoshi-Variable",
+}
+.createjob-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.13);
+  // backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.createjob-modal {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  padding: 32px 28px 28px 28px;
+  max-width: 850px;
+  width: 95vw;
+  font-family: 'Inter', sans-serif;
+  z-index: 1001;
+  position: relative;
+  border: 2px solid #00aaff22;
+}
+
+.createjob-modal h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.createjob-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.createjob-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.createjob-field label {
+  font-weight: 500;
+  margin-bottom: 7px;
+  color: #222;
+}
+
+.createjob-input, .createjob-select, .createjob-textarea {
+  border: 1.5px solid #e0e0e0;
+  border-radius: 9px;
+  padding: 12px;
+  font-size: 1.05rem;
+  outline: none;
+  margin-bottom: 2px;
+  background: #fafbfc;
+  transition: border-color 0.2s;
+}
+
+.createjob-input:focus, .createjob-select:focus, .createjob-textarea:focus {
+  border-color: #00aaff;
+}
+
+.createjob-salary-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.createjob-salary-row .createjob-input {
+  flex: 1;
+}
+
+.createjob-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.createjob-draft, .createjob-publish {
+  padding: 13px 32px;
+  border-radius: 9px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+
+.createjob-draft {
+  background: #fff;
+  border: 1.5px solid #bdbdbd;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.createjob-draft:hover {
+  background: #f4f4f4;
+}
+
+.createjob-publish {
+  background: #00aaff;
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.maxSalary{
+  /* Frame 48102952 */
+
+position: relative;
+width: 183px;
+height: 58px;
+}
+
+.createjob-publish:hover {
+  background: #008fcc;
+}
+
+@media (max-width: 900px) {
+  .createjob-modal {
+    padding: 18px 8px;
+    max-width: 99vw;
+  }
+  .createjob-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+`;
+
+const jobTypes = ["FullTime", "PartTime", "Internship", "Contract"];
+const locations = ["Chennai", "Bangalore", "Hyderabad", "Delhi", "Mumbai"];
+
+export default function CreateJobs() {
+  // Inject styles only once
+  useEffect(() => {
+    if (!document.getElementById("createjob-modal-style")) {
+      const style = document.createElement("style");
+      style.id = "createjob-modal-style";
+      style.innerHTML = modalStyles;
+      document.head.appendChild(style);
+    }
+  }, []);
+
+  const [form, setForm] = useState({
+    title: "Enter your title",
+    company: "Amazon, Microsoft, Swiggy",
+    location: "Choose preferred location",
+    jobType: "Fulltime",
+    minSalary: "₹0",
+    maxSalary: "₹12,00,000",
+    deadline: "",
+    description: "Please share a description",
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  function handleSaveDraft() {
+    alert("Draft saved!");
+    // Save draft logic here
+  }
+
+  function handlePublish(e) {
+    e.preventDefault();
+    // fetch("/api/jobs", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(form),
+    // })
+    //   .then((res) => {
+    //     if (!res.ok) throw new Error("Failed to create job");
+    //     return res.json();
+    //   })
+    //   .then((data) => {
+    //     alert("Job published!");
+    //   })
+    //   .catch((err) => {
+    //     alert("Error: " + err.message);
+    //   });
+    setForm({
+      title: "",
+      company: "",
+      location: locations[0],
+      jobType: jobTypes[0],
+      minSalary: "",
+      maxSalary: "",
+      deadline: "",
+      description: "",
+    });
+  }
+
+  return (
+    <div className="createjob-modal-overlay">
+      <form className="createjob-modal" onSubmit={handlePublish}>
+        <h2>Create Job Opening</h2>
+        <div className="createjob-row">
+          <div className="createjob-field">
+            <label>Job Title</label>
+            <input
+              className="createjob-input"
+              name="title"
+              value={form.title}
+              onChange={handleChange}
+              placeholder="Full Stack Developer"
+              required
+            />
+          </div>
+          <div className="createjob-field">
+            <label>Company Name</label>
+            <input
+              className="createjob-input"
+              name="company"
+              value={form.company}
+              onChange={handleChange}
+              placeholder="Amazon"
+              required
+            />
+          </div>
+        </div>
+        <div className="createjob-row">
+          <div className="createjob-field">
+            <label>Location</label>
+            <select
+              className="createjob-select"
+              name="location"
+              value={form.location}
+              onChange={handleChange}
+            >
+              {locations.map((loc) => (
+                <option key={loc} value={loc}>
+                  {loc}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="createjob-field">
+            <label>Job Type</label>
+            <select
+              className="createjob-select"
+              name="jobType"
+              value={form.jobType}
+              onChange={handleChange}
+            >
+              {jobTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="createjob-row">
+          <div className="createjob-field">
+            <label>Salary Range</label>
+            <div className="createjob-salary-row">
+              <input
+                type="number"
+                className="createjob-input"
+                name="minSalary"
+                value={form.minSalary}
+                onChange={handleChange}
+                placeholder="₹ 0"
+                min={0}
+              />
+              <div className="maxSalary">
+                <input
+                  type="number"
+                  className="createjob-input"
+                  name="maxSalary"
+                  value={form.maxSalary}
+                  onChange={handleChange}
+                  placeholder="₹ 12,00,000"
+                  min={0}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="createjob-field">
+            <label>Application Deadline</label>
+            <input
+              type="date"
+              className="createjob-input"
+              name="deadline"
+              value={form.deadline}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="createjob-field" style={{ marginBottom: 0 }}>
+          <label>Job Description</label>
+          <textarea
+            className="createjob-textarea"
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            placeholder="Please share a description to let the candidate know more about the job role"
+            rows={4}
+          />
+        </div>
+        <div className="createjob-actions">
+          <button
+            type="button"
+            className="createjob-draft"
+            onClick={handleSaveDraft}
+          >
+            Save Draft <span style={{ fontSize: "1.2em" }}>&#9660;</span>
+          </button>
+          <button type="submit" className="createjob-publish">
+            Publish &nbsp; <span style={{ fontSize: "1.2em" }}>&#187;</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+
+import React, { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import Body from "../components/Body";
+import axios from "axios";
+import CreateJobs from "./CreatePage";
+
+const staleJobs = [
+  {
+    logo: "amazonLogo",
+    time: "24h Ago",
+    title: "MERN Stack Developer",
+    experience: "2-4 yr Exp",
+    jobType: "FullTime",
+    location: "Remote",
+    salary: "15 LPA",
+    description: [
+      "Build scalable backend APIs using Node.js and MongoDB.",
+      "Work on pixel-perfect frontend React apps.",
+    ],
+  },
+  {
+    logo: "teslaLogo",
+    time: "24h Ago",
+    title: "Node Js Developer",
+    experience: "1-3 yr Exp",
+    jobType: "Contract",
+    location: "Hyderabad",
+    salary: "12 LPA",
+    description: [
+      "Develop and maintain scalable server-side logic.",
+      "Integrate user-facing elements with server-side logic.",
+    ],
+  },
+  {
+    logo: "swiggyLogo",
+    time: "24h Ago",
+    title: "UX/UI Developer",
+    experience: "1-3 yr Exp",
+    jobType: "FullTime",
+    location: "Bangalore",
+    salary: "10 LPA",
+    description: [
+      "Design modern UI/UX for web and mobile apps.",
+      "Collaborate with developers to integrate designs.",
+    ],
+  },
+  {
+    logo: "amazonLogo",
+    time: "24h Ago",
+    title: "Full Stack Developer",
+    experience: "1-3 yr Exp",
+    jobType: "FullTime",
+    location: "Chennai",
+    salary: "18 LPA",
+    description: [
+      "Develop both client and server-side components.",
+      "Ensure cross-platform optimization for mobile phones.",
+    ],
+  },
+  {
+    logo: "teslaLogo",
+    time: "24h Ago",
+    title: "Java Backend Developer",
+    experience: "3-5 yr Exp",
+    jobType: "Contract",
+    location: "Bangalore",
+    salary: "25 LPA",
+    description: [
+      "Design REST APIs using Spring Boot.",
+      "Implement multi-threaded services.",
+    ],
+  },
+  {
+    logo: "swiggyLogo",
+    time: "24h Ago",
+    title: "UI Intern",
+    experience: "0-1 yr Exp",
+    jobType: "Internship",
+    location: "Hyderabad",
+    salary: "15K INR",
+    description: [
+      "Assist in creating design systems.",
+      "Support senior designers in daily tasks.",
+    ],
+  },
+  {
+    logo: "amazonLogo",
+    time: "24h Ago",
+    title: "Frontend Developer",
+    experience: "2-4 yr Exp",
+    jobType: "PartTime",
+    location: "Remote",
+    salary: "6 LPA",
+    description: [
+      "Build responsive web applications using React.",
+      "Ensure accessibility standards.",
+    ],
+  },
+  {
+    logo: "teslaLogo",
+    time: "24h Ago",
+    title: "DevOps Engineer",
+    experience: "3-6 yr Exp",
+    jobType: "FullTime",
+    location: "Chennai",
+    salary: "30 LPA",
+    description: [
+      "Maintain CI/CD pipelines and automate deployments.",
+      "Monitor infrastructure and performance metrics.",
+    ],
+  },
+  {
+    logo: "swiggyLogo",
+    time: "24h Ago",
+    title: "QA Tester",
+    experience: "1-3 yr Exp",
+    jobType: "Contract",
+    location: "Hyderabad",
+    salary: "10K INR",
+    description: [
+      "Write and execute test cases for web/mobile apps.",
+      "Report and track bugs across sprints.",
+    ],
+  },
+  {
+    logo: "amazonLogo",
+    time: "24h Ago",
+    title: "SDE 1",
+    experience: "0-2 yr Exp",
+    jobType: "FullTime",
+    location: "Bangalore",
+    salary: "50 LPA",
+    description: [
+      "Contribute to scalable systems development.",
+      "Collaborate with cross-functional engineering teams.",
+    ],
+  },
+  {
+    logo: "teslaLogo",
+    time: "24h Ago",
+    title: "React Native Developer",
+    experience: "2-4 yr Exp",
+    jobType: "FullTime",
+    location: "Remote",
+    salary: "22 LPA",
+    description: [
+      "Build cross-platform mobile apps using React Native.",
+      "Integrate with REST APIs and third-party SDKs.",
+    ],
+  },
+  {
+    logo: "swiggyLogo",
+    time: "24h Ago",
+    title: "Graphic Designer",
+    experience: "1-2 yr Exp",
+    jobType: "PartTime",
+    location: "Chennai",
+    salary: "5 LPA",
+    description: [
+      "Design creative assets for social and web.",
+      "Maintain brand consistency across platforms.",
+    ],
+  },
+  {
+    logo: "amazonLogo",
+    time: "24h Ago",
+    title: "Product Manager",
+    experience: "5-8 yr Exp",
+    jobType: "FullTime",
+    location: "Bangalore",
+    salary: "48 LPA",
+    description: [
+      "Define product roadmap and feature priorities.",
+      "Coordinate with tech and business teams.",
+    ],
+  },
+  {
+    logo: "teslaLogo",
+    time: "24h Ago",
+    title: "Data Analyst",
+    experience: "2-4 yr Exp",
+    jobType: "Contract",
+    location: "Hyderabad",
+    salary: "20 LPA",
+    description: [
+      "Analyze large datasets and present insights.",
+      "Build dashboards using Tableau/PowerBI.",
+    ],
+  },
+  {
+    logo: "swiggyLogo",
+    time: "24h Ago",
+    title: "Backend Intern",
+    experience: "0-1 yr Exp",
+    jobType: "Internship",
+    location: "Remote",
+    salary: "12K INR",
+    description: [
+      "Support backend team in building REST APIs.",
+      "Fix bugs and write unit tests.",
+    ],
+  },
+  {
+    logo: "amazonLogo",
+    time: "24h Ago",
+    title: "AI/ML Engineer",
+    experience: "4-7 yr Exp",
+    jobType: "FullTime",
+    location: "Chennai",
+    salary: "40 LPA",
+    description: [
+      "Build and deploy ML models to production.",
+      "Work with data scientists to refine models.",
+    ],
+  },
+  {
+    logo: "teslaLogo",
+    time: "24h Ago",
+    title: "Cybersecurity Analyst",
+    experience: "2-5 yr Exp",
+    jobType: "FullTime",
+    location: "Bangalore",
+    salary: "27 LPA",
+    description: [
+      "Monitor and respond to security incidents.",
+      "Conduct vulnerability assessments.",
+    ],
+  },
+  {
+    logo: "swiggyLogo",
+    time: "24h Ago",
+    title: "Customer Support Intern",
+    experience: "0-1 yr Exp",
+    jobType: "Internship",
+    location: "Chennai",
+    salary: "10K INR",
+    description: [
+      "Assist users through live chat and email.",
+      "Maintain high customer satisfaction.",
+    ],
+  },
+  {
+    logo: "amazonLogo",
+    time: "24h Ago",
+    title: "Cloud Architect",
+    experience: "6-10 yr Exp",
+    jobType: "FullTime",
+    location: "Remote",
+    salary: "50 LPA",
+    description: [
+      "Design AWS-based cloud infrastructure.",
+      "Ensure high availability and scalability.",
+    ],
+  },
+  {
+    logo: "teslaLogo",
+    time: "24h Ago",
+    title: "Content Writer",
+    experience: "1-3 yr Exp",
+    jobType: "PartTime",
+    location: "Hyderabad",
+    salary: "4 LPA",
+    description: [
+      "Write technical and marketing content.",
+      "Optimize for SEO and readability.",
+    ],
+  },
+];
+
+const Homepage = () => {
+  const [showModal, setShowModal] = useState(false);
+  const handleOpenModal = () => setShowModal(true);
+
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [jobType, setJobType] = useState("Job Type");
+  const [locationType, setLocationType] = useState("Preferred Location");
+  const [salary, setSalary] = useState([10000, 90000]);
+
+  // useEffect(() => {
+  //   const fetchJobs = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:3000/api/jobs");
+
+  //       console.log(res.data);
+  //       setJobs(res.data);
+  //     } catch (error) {
+  //       console.log("Error fetching notes", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchJobs();
+  // }, []);
+  return (
+    <div>
+      <div className={`min-h-screen ${showModal ? "blurred-bg" : ""}`}>
+        <Navbar
+          onCreateJobClick={handleOpenModal}
+          jobType={jobType}
+          setJobType={setJobType}
+          locationType={locationType}
+          setLocationType={setLocationType}
+          salary={salary}
+          setSalary={setSalary}
+        />
+        {/* <Body jobs={jobs}/> */}
+        <Body
+          jobs={staleJobs}
+          jobType={jobType}
+          locationType={locationType}
+          salary={salary}
+        />
+      </div>
+      {showModal && <CreateJobs onClose={() => setShowModal(false)} />}
+    </div>
+  );
+};
+
+export default Homepage;
