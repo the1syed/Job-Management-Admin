@@ -3,117 +3,59 @@ import "./Body.css";
 import JobCard from "./JobCard";
 import { assets } from "../assets/assets";
 
-const Body = () => {
+function parseSalary(salaryStr) {
+  // Examples: "15 LPA", "10K INR", "50 LPA"
+  if (!salaryStr) return 0;
+
+  const lower = salaryStr.toLowerCase().trim();
+
+  if (lower.includes("lpa")) {
+    // LPA = Lakhs per annum
+    // Convert to INR per month: 1 LPA = 100000 INR / 12 months ≈ 8333.33
+    const num = parseFloat(lower.replace("lpa", "").trim());
+    return Math.round((num * 100000) / 12);
+  } else if (lower.includes("k")) {
+    // K INR = Thousand INR (assuming monthly)
+    const num = parseFloat(lower.replace("k", "").replace("inr", "").trim());
+    return Math.round(num * 1000);
+  } else {
+    // fallback if format unknown: parse number only
+    const num = parseFloat(lower.replace(/[^0-9.]/g, ""));
+    return isNaN(num) ? 0 : num;
+  }
+}
+
+
+const Body = ({ jobs, jobType, locationType, salary }) => {
   return (
     <div className="body">
       <div className="jobCardOuter">
         <div className="jobCardUpper">
-          <JobCard
-            logo={assets.amazonLogo}
-            time="24h Ago"
-            title="MERN Stack Developer"
-            experience="2-4 yr Exp"
-            jobType="Remote"
-            salary="15 LPA"
-            description={[
-              "Build scalable backend APIs using Node.js and MongoDB.",
-              "Work on pixel-perfect frontend React apps.",
-            ]}
-            onApplyClick={() => alert("Applied to MERN Stack Developer")}
-          />
-          <JobCard
-            logo={assets.teslaLogo}
-            time="24h Ago"
-            title="Node Js Developer"
-            experience="1-3 yr Exp"
-            jobType="Onsite"
-            salary="12 LPA"
-            description={[
-              "A user-friendly interface lets you browse stunning photos and videos",
-              "Filter destinations based on interests and travel style, and create personalized",
-            ]}
-            onApplyClick={() => alert("Applied to Node Js Developer")}
-          />
-          <JobCard
-            logo={assets.swiggyLogo}
-            time="24h Ago"
-            title="UX/UI Developer"
-            experience="1-3 yr Exp"
-            jobType="Onsite"
-            salary="12 LPA"
-            description={[
-              "A user-friendly interface lets you browse stunning photos and videos",
-              "Filter destinations based on interests and travel style, and create personalized",
-            ]}
-            onApplyClick={() => alert("Applied to UX/UI Developer")}
-          />
-          <JobCard
-            logo={assets.amazonLogo}
-            time="24h Ago"
-            title="Full Stack Developer"
-            experience="1-3 yr Exp"
-            jobType="Onsite"
-            salary="12 LPA"
-            description={[
-              "A user-friendly interface lets you browse stunning photos and videos",
-              "Filter destinations based on interests and travel style, and create personalized",
-            ]}
-            onApplyClick={() => alert("Applied to Full Stack Developer")}
-          />
-        </div>
-        <div className="jobCardUpper">
-          <JobCard
-            logo={assets.teslaLogo}
-            time="24h Ago"
-            title="Java Backend Developer"
-            experience="3-5 yr Exp"
-            jobType="Onsite"
-            salary="18 LPA"
-            description={[
-              "Design and implement REST APIs using Spring Boot.",
-              "Optimize backend services and databases for performance.",
-            ]}
-            onApplyClick={() => alert("Applied to Java Backend Developer")}
-          />
-          <JobCard
-            logo={assets.swiggyLogo}
-            time="24h Ago"
-            title="UX/UI Developer"
-            experience="1-3 yr Exp"
-            jobType="Onsite"
-            salary="12 LPA"
-            description={[
-              "A user-friendly interface lets you browse stunning photos and videos",
-              "Filter destinations based on interests and travel style, and create personalized",
-            ]}
-            onApplyClick={() => alert("Applied to UX/UI Developer")}
-          />
-          <JobCard
-            logo={assets.amazonLogo}
-            time="24h Ago"
-            title="Full Stack Developer"
-            experience="1-3 yr Exp"
-            jobType="Onsite"
-            salary="12 LPA"
-            description={[
-              "A user-friendly interface lets you browse stunning photos and videos",
-              "Filter destinations based on interests and travel style, and create personalized",
-            ]}
-            onApplyClick={() => alert("Applied to Full Stack Developer")}
-          />
-          <JobCard
-            logo={assets.teslaLogo}
-            time="24h Ago"
-            title="Node Js Developer"
-            experience="1-3 yr Exp"
-            jobType="Onsite"
-            salary="12 LPA"
-            description={[
-              "A user-friendly interface lets you browse stunning photos and videos",
-              "Filter destinations based on interests and travel style, and create personalized",
-            ]}
-            onApplyClick={() => alert("Applied to Node Js Developer")}
-          />
+          {
+            jobs
+            .filter(
+              (job) => {
+                const jobSalary = parseSalary(job.salary);
+                return(
+                  (jobType === "Job Type" || job.jobType === jobType) &&
+                  (locationType === "Preferred Location" || job.location === locationType) &&
+                  (jobSalary >= salary[0] && jobSalary <= salary[1])
+                )
+              }
+            )
+            .map((job) => (
+              <JobCard
+                logo={assets[job.logo]}
+                time={job.time}
+                title={job.title}
+                experience={job.experience}
+                jobType={job.jobType}
+                salary={job.salary}
+                description={job.description}
+                onApplyClick={() => alert(`Applied to ${job.title}`)}
+              />
+            ))
+          }
         </div>
       </div>
     </div>

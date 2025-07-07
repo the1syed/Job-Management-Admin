@@ -4,14 +4,13 @@ import { assets } from "../assets/assets";
 import { Link } from "react-router-dom";
 import RangeSlider from "./Slider";
 
-// ...imports and assets
+const LOCATION_OPTIONS = ["Preferred Location", "Remote", "Chennai", "Hyderabad", "Bangalore"];
+const JOB_TYPE_OPTIONS = ["Job Type", "FullTime", "PartTime", "Contract", "Internship"];
 
-const Navbar = ({ onCreateJobClick }) => {
+
+const Navbar = ({ onCreateJobClick, jobType, setJobType, locationType, setLocationType, salary, setSalary }) => {
   const [jobTypeOpen, setJobTypeOpen] = useState(false);
-  const [jobType, setJobType] = useState("Job Type");
   const [locationTypeOpen, setlocationTypeOpen] = useState(false);
-  const [locationType, setLocationType] = useState("Preferred location");
-  const [salary, setSalary] = useState([50000, 80000]);
 
   return (
     <header>
@@ -91,7 +90,7 @@ const Navbar = ({ onCreateJobClick }) => {
             <img
               className="jobtypeicon"
               src={assets.location}
-              alt="Preffered Location"
+              alt="Preferred Location"
             />
             <div className="custom-dropdown">
               <div
@@ -107,23 +106,22 @@ const Navbar = ({ onCreateJobClick }) => {
               </div>
               {locationTypeOpen && (
                 <ul className="dropdown-menu">
-                  {["Remote", "Chennai", "Hyderabad", "Freelance"].map(
-                    (type) => (
-                      <li
-                        key={type}
-                        onClick={() => {
-                          setLocationType(type);
-                          setlocationTypeOpen(false);
-                        }}
-                      >
-                        {type}
-                      </li>
-                    )
-                  )}
+                  {LOCATION_OPTIONS.map((type) => (
+                    <li
+                      key={type}
+                      onClick={() => {
+                        setLocationType(type);
+                        setlocationTypeOpen(false);
+                      }}
+                    >
+                      {type}
+                    </li>
+                  ))}
                 </ul>
               )}
             </div>
           </div>
+
           {/* JOB TYPE */}
           <div className="filter-item">
             <div className="verticalline"></div>
@@ -142,47 +140,42 @@ const Navbar = ({ onCreateJobClick }) => {
               </div>
               {jobTypeOpen && (
                 <ul className="dropdown-menu">
-                  {["Full-Time", "Part-Time", "Contract", "Internship"].map(
-                    (type) => (
-                      <li
-                        key={type}
-                        onClick={() => {
-                          setJobType(type);
-                          setJobTypeOpen(false);
-                        }}
-                      >
-                        {type}
-                      </li>
-                    )
-                  )}
+                  {JOB_TYPE_OPTIONS.map((type) => (
+                    <li
+                      key={type}
+                      onClick={() => {
+                        setJobType(type);
+                        setJobTypeOpen(false);
+                      }}
+                    >
+                      {type}
+                    </li>
+                  ))}
                 </ul>
               )}
             </div>
           </div>
+
+          {/* SALARY */}
+
+
           {/* SALARY */}
           <div className="salarySlider">
             <div>
-              <div className="salary-labelText">Salary Per Month </div>
+              <div className="salary-labelText">Salary Per Month</div>
             </div>
             <div className="salary-label">
-              <RangeSlider
-                sx={{ width: 200, height: 1 }}
-                value={salary}
-                onChange={(e, newValue) => setSalary(newValue)}
-                min={0}
-                max={200000}
-                step={1000}
-                valueLabelDisplay="auto"
-                getAriaLabel={() => "Salary Range"}
-              />
+              <RangeSlider salary={salary} setSalary={setSalary} />
             </div>
           </div>
           <div className="filter-item salary-slider">
             <div className="verticallineSalary"></div>
             <div className="salary-labelAmount">
-              ₹{salary[0] / 1000}k - ₹{salary[1] / 1000}k
+              ₹{(salary[0] / 1000).toFixed(0)}k - ₹{(salary[1] / 1000).toFixed(0)}k
             </div>
           </div>
+
+
         </div>
       </div>
     </header>

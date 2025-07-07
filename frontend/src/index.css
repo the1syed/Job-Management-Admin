@@ -14,7 +14,8 @@
 }
 
 .blurred-bg {
-  filter: blur(6px);
+  filter: brightness(0.5) contrast(120%);
+
   pointer-events: none;
   user-select: none;
 }

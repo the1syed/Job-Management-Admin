@@ -2,171 +2,101 @@ import * as React from "react";
 import { styled, alpha, Box } from "@mui/system";
 import { Slider as BaseSlider, sliderClasses } from "@mui/base/Slider";
 
-export default function RangeSlider() {
-  const [value, setValue] = React.useState([20, 37]);
-
+// Props: salary = [min, max], setSalary = function to update salary range
+export default function RangeSlider({ salary, setSalary }) {
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setSalary(newValue);
   };
 
   return (
     <Box sx={{ width: 300 }}>
-      {/* controlled: */}
-      <Slider
-        value={value}
+      <StyledSlider
+        value={salary}
         onChange={handleChange}
         getAriaLabel={() => "Salary range"}
-        getAriaValueText={valuetext}
-        min={0}
-        max={100}
+        getAriaValueText={valueText}
+        min={10000}
+        max={500000}
+        step={10000}
+        valueLabelDisplay="auto"
+        disableSwap={false}
       />
-      {/* uncontrolled: */}
-      {/* <Slider
-        defaultValue={[20, 37]}
-        getAriaLabel={() => "Salary range"}
-        getAriaValueText={valuetext}
-        min={0}
-        max={100}
-      /> */}
     </Box>
   );
 }
 
-function valuetext(value) {
-  return `${value}°C`;
+// Show value as ₹ in K or L
+function valueText(value) {
+  return value >= 100000
+    ? `₹${(value / 100000).toFixed(1)}L`
+    : `₹${value / 1000}K`;
 }
 
-const blue = {
-  100: "#DAECFF",
-  200: "#99CCF3",
-  400: "#3399FF",
-  300: "#66B2FF",
-  500: "#007FFF",
-  600: "#0072E5",
-  700: "#0059B3",
-  900: "#003A75",
-};
+// ---- STYLING ----
 
-const grey = {
-  50: "#F3F6F9",
-  100: "#E5EAF2",
-  200: "#DAE2ED",
-  300: "#C7D0DD",
-  400: "#B0B8C4",
-  500: "#9DA8B7",
-  600: "#6B7A90",
-  700: "#434D5B",
-  800: "#303740",
-  900: "#1C2025",
-  1000: "#000000",
-};
-
-const Slider = styled(BaseSlider)(
+const StyledSlider = styled(BaseSlider)(
   ({ theme }) => `
-  color: ${grey[1000]};
-  height: 1px;
+  color: #000;
+  height: 2px;
   width: 100%;
   padding: 16px 0;
   display: inline-flex;
-  align-items: center;
   position: relative;
-  cursor: pointer;
   touch-action: none;
-  -webkit-tap-highlight-color: transparent;
 
   &.${sliderClasses.disabled} {
-    pointer-events: none;
-    cursor: default;
-    color: ${grey[1000]};
     opacity: 0.4;
+    pointer-events: none;
   }
 
   & .${sliderClasses.rail} {
-    display: block;
-    position: absolute;
     width: 100%;
-    height: 2.5px;
-    border-radius: 6px;
-    background-color: currentColor;
-    opacity: 0.3;
+    height: 4px;
+    border-radius: 4px;
+    background-color: #ccc;
   }
 
   & .${sliderClasses.track} {
-    display: block;
-    position: absolute;
-    height: 2.5px;
-    border-radius: 6px;
-    background-color: currentColor;
+    height: 4px;
+    border-radius: 4px;
+    background-color: #CCC2C2;
   }
 
   & .${sliderClasses.thumb} {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    margin-left: -6px;
-    width: 15px;
-    height: 15px;
-    box-sizing: border-box;
+    width: 16px;
+    height: 16px;
+    background-color: #000;
     border-radius: 50%;
-    outline: 0;
-    background-color: ${grey[1000]};
-    fill:#FFF;
-    transition-property: box-shadow, transform;
-    transition-timing-function: ease;
-    transition-duration: 120ms;
-    transform-origin: center;
-
-    &::before {
-    content: '';
     position: absolute;
     top: 50%;
-    left: 50%;
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
     transform: translate(-50%, -50%);
-  }
-
+    box-sizing: border-box;
+    cursor: grab;
 
     &:hover {
-      box-shadow: 0 0 0 6px ${alpha(
-        theme.palette.mode === "light" ? blue[200] : blue[300],
-        0.3
-      )};
+      box-shadow: 0 0 0 6px ${alpha("#007FFF", 0.2)};
     }
 
-    &.${sliderClasses.focusVisible} {
-      box-shadow: 0 0 0 8px ${alpha(
-        theme.palette.mode === "light" ? blue[200] : blue[400],
-        0.5
-      )};
-      outline: none;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      background-color: white;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
     }
 
     &.${sliderClasses.active} {
-      box-shadow: 0 0 0 8px ${alpha(
-        theme.palette.mode === "light" ? blue[200] : blue[400],
-        0.5
-      )};
-      outline: none;
-      transform: scale(1.2);
+      box-shadow: 0 0 0 8px ${alpha("#007FFF", 0.3)};
+      cursor: grabbing;
     }
   }
 
   & .${sliderClasses.mark} {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 99%;
-    background-color: ${theme.palette.mode === "light" ? blue[200] : blue[900]};
-    top: 44%;
-    transform: translateX(-50%);
-  }
-
-  & .${sliderClasses.markActive} {
-    background-color: ${theme.palette.mode === "light" ? blue[500] : blue[400]};
+    display: none;
   }
 `
 );

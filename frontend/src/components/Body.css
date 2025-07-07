@@ -25,16 +25,8 @@ background: #FBFBFF; */
 }
 
 .jobCardUpper {
-  display: flex;
-  flex-direction: row;
-  align-items: normal;
-  justify-content: flex-start;
-  background: #fbfbff;
-  gap: 16px;
-  width: 1312px;
-  height: 360px;
-
-  /* center horizontally */
-  margin-left: auto;
-  margin-right: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 16px; /* space between cards */
+  padding: 20px;
 }

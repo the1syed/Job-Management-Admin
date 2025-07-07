@@ -49,7 +49,7 @@ const JobCard = ({
         </ul>
       </div>
       <button className="applybutton">
-        <div className="applybuttontext">Apply Now</div>
+        <div className="applybuttontext" onClick={()=>onApplyClick()}>Apply Now</div>
       </button>
     </div>
   );

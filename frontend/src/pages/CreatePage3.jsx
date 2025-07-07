@@ -2,20 +2,141 @@ import React, { useState, useEffect } from "react";
 
 // --- Modal Styles ---
 const modalStyles = `
+*{
+font-family:"Satoshi-Variable",
+}
+.createjob-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.13);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-.popup{
-/* Frame 48102950 */
+.createjob-modal {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  padding: 32px 28px 28px 28px;
+  max-width: 850px;
+  width: 95vw;
+  font-family: 'Inter', sans-serif;
+  z-index: 1001;
+  position: relative;
+  border: 2px solid #00aaff22;
+}
 
-position: absolute;
-width: 848px;
-height: 779px;
-left: calc(50% - 848px/2);
-top: 117px;
+.createjob-modal h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
 
-background: #FFFFFF;
-box-shadow: 0px 0px 24px rgba(169, 169, 169, 0.25);
-border-radius: 16px;
+.createjob-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 18px;
+}
 
+.createjob-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.createjob-field label {
+  font-weight: 500;
+  margin-bottom: 7px;
+  color: #222;
+}
+
+.createjob-input, .createjob-select, .createjob-textarea {
+  border: 1.5px solid #e0e0e0;
+  border-radius: 9px;
+  padding: 12px;
+  font-size: 1.05rem;
+  outline: none;
+  margin-bottom: 2px;
+  background: #fafbfc;
+  transition: border-color 0.2s;
+}
+
+.createjob-input:focus, .createjob-select:focus, .createjob-textarea:focus {
+  border-color: #00aaff;
+}
+
+.createjob-salary-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.createjob-salary-row .createjob-input {
+  flex: 1;
+}
+
+.createjob-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.createjob-draft, .createjob-publish {
+  padding: 13px 32px;
+  border-radius: 9px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+
+.createjob-draft {
+  background: #fff;
+  border: 1.5px solid #bdbdbd;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.createjob-draft:hover {
+  background: #f4f4f4;
+}
+
+.createjob-publish {
+  background: #00aaff;
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.maxSalary{
+  /* Frame 48102952 */
+
+position: relative;
+width: 183px;
+height: 58px;
+}
+
+.createjob-publish:hover {
+  background: #008fcc;
+}
+
+@media (max-width: 900px) {
+  .createjob-modal {
+    padding: 18px 8px;
+    max-width: 99vw;
+  }
+  .createjob-row {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
 `;
@@ -88,8 +209,8 @@ export default function CreateJobs() {
   }
 
   return (
-    <div className="popup">
-      <form onSubmit={handlePublish}>
+    <div className="createjob-modal-overlay">
+      <form className="createjob-modal" onSubmit={handlePublish}>
         <h2>Create Job Opening</h2>
         <div className="createjob-row">
           <div className="createjob-field">
@@ -161,15 +282,16 @@ export default function CreateJobs() {
                 min={0}
               />
               <div className="maxSalary">
-                <input
-                  type="number"
-                  className="createjob-input"
-                  name="maxSalary"
-                  value={form.maxSalary}
-                  onChange={handleChange}
-                  placeholder="₹ 12,00,000"
-                  min={0}
-                />
+
+              <input
+                type="number"
+                className="createjob-input"
+                name="maxSalary"
+                value={form.maxSalary}
+                onChange={handleChange}
+                placeholder="₹ 12,00,000"
+                min={0}
+              />
               </div>
             </div>
           </div>
