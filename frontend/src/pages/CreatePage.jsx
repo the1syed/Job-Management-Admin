@@ -181,31 +181,31 @@ export default function CreateJobs() {
 
   function handlePublish(e) {
     e.preventDefault();
-    fetch("/api/jobs", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to create job");
-        return res.json();
-      })
-      .then((data) => {
-        alert("Job published!");
-        setForm({
-          title: "",
-          company: "",
-          location: locations[0],
-          jobType: jobTypes[0],
-          minSalary: "",
-          maxSalary: "",
-          deadline: "",
-          description: "",
-        });
-      })
-      .catch((err) => {
-        alert("Error: " + err.message);
-      });
+    // fetch("/api/jobs", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(form),
+    // })
+    //   .then((res) => {
+    //     if (!res.ok) throw new Error("Failed to create job");
+    //     return res.json();
+    //   })
+    //   .then((data) => {
+    //     alert("Job published!");
+    //   })
+    //   .catch((err) => {
+    //     alert("Error: " + err.message);
+    //   });
+    setForm({
+      title: "",
+      company: "",
+      location: locations[0],
+      jobType: jobTypes[0],
+      minSalary: "",
+      maxSalary: "",
+      deadline: "",
+      description: "",
+    });
   }
 
   return (
