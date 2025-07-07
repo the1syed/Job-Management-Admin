@@ -2,7 +2,7 @@ import logo from "./Logo.png";
 import amazonLogo from "./Amazon.png";
 import swiggyLogo from "./Swiggy.png";
 import teslaLogo from "./Tesla.png";
-import searchicon from "./searchicon.png";
+import searchicon from "./searchIcon.png";
 import location from "./location.png";
 import jobType from "./jobType.png";
 import salary from "./salary.png";
