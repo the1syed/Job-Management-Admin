@@ -9,7 +9,7 @@ import {
 
 const jobRoute = express.Router();
 
-jobRoute.get("/:id", getJobById);
+// jobRoute.get("/:id", getJobById);
 
 jobRoute.get("/", getAllJobs);
 

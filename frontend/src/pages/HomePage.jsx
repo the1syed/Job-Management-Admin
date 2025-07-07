@@ -278,21 +278,21 @@ const Homepage = () => {
   const [locationType, setLocationType] = useState("Preferred Location");
   const [salary, setSalary] = useState([10000, 90000]);
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const res = await axios.get("http://localhost:3000/api/jobs");
+  // useEffect(() => {
+  //   const fetchJobs = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:3000/api/jobs");
 
-        console.log(res.data);
-        setJobs(res.data);
-      } catch (error) {
-        console.log("Error fetching notes", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    // fetchJobs();
-  }, []);
+  //       console.log(res.data);
+  //       setJobs(res.data);
+  //     } catch (error) {
+  //       console.log("Error fetching notes", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchJobs();
+  // }, []);
   return (
     <div>
       <div className={`min-h-screen ${showModal ? "blurred-bg" : ""}`}>
