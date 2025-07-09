@@ -24,7 +24,7 @@ font-size: 20px;
 .createjob-modal {
 width: 848px;
 height: 779px;
-top: -180px;
+top: 58px;
     left: -3px;
   background: #fff;
   border-radius: 18px;
@@ -35,7 +35,6 @@ top: -180px;
   font-family: 'Inter', sans-serif;
   z-index: 1001;
   position: relative;
-  border: 2px solid #00aaff22;
   padding: 34px;
   margin: auto;
 }
