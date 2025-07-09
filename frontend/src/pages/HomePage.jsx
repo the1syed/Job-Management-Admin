@@ -273,6 +273,7 @@ const Homepage = () => {
 
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [jobType, setJobType] = useState("Job Type");
   const [locationType, setLocationType] = useState("Preferred Location");
@@ -304,6 +305,8 @@ const Homepage = () => {
           setLocationType={setLocationType}
           salary={salary}
           setSalary={setSalary}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
         />
         {/* <Body jobs={jobs}/> */}
         <Body
@@ -311,6 +314,7 @@ const Homepage = () => {
           jobType={jobType}
           locationType={locationType}
           salary={salary}
+          searchTerm={searchTerm}
         />
       </div>
       {showModal && <CreateJobs onClose={() => setShowModal(false)} />}

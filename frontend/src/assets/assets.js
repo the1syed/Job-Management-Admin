@@ -9,6 +9,8 @@ import salary from "./salary.png";
 import experience from "./experienceicon.png";
 import onsite from "./onsite.png";
 import down from "./down.png";
+import PublishArrow from "./PublishArrow.png";
+import DraftArrow from "./DraftArrow.png";
 
 export const cityList = ["Chennai", "Bengaluru", "Pune", "Coimbatore"];
 
@@ -24,6 +26,8 @@ export const assets = {
   experience,
   onsite,
   down,
+  PublishArrow,
+  DraftArrow,
 };
 
 export const menuLinks = [

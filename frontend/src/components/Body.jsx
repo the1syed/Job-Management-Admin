@@ -25,37 +25,41 @@ function parseSalary(salaryStr) {
   }
 }
 
+const Body = ({ jobs, jobType, locationType, salary, searchTerm }) => {
+  const term = searchTerm.trim().toLowerCase();
+  const filteredJobs = jobs.filter((job) => {
+    const jobSalary = parseSalary(job.salary);
+    // filter by type, location, salary
+    const matchesType = jobType === "Job Type" || job.jobType === jobType;
+    const matchesLocation =
+      locationType === "Preferred Location" || job.location === locationType;
+    const matchesSalary = jobSalary >= salary[0] && jobSalary <= salary[1];
+    // filter by search term in title or description points
+    const inTitle = job.title.toLowerCase().includes(term);
+    const inDesc = job.description.some((point) =>
+      point.toLowerCase().includes(term)
+    );
+    const matchesSearch = term === "" || inTitle || inDesc;
 
-const Body = ({ jobs, jobType, locationType, salary }) => {
+    return matchesType && matchesLocation && matchesSalary && matchesSearch;
+  });
   return (
     <div className="body">
       <div className="jobCardOuter">
         <div className="jobCardUpper">
-          {
-            jobs
-            .filter(
-              (job) => {
-                const jobSalary = parseSalary(job.salary);
-                return(
-                  (jobType === "Job Type" || job.jobType === jobType) &&
-                  (locationType === "Preferred Location" || job.location === locationType) &&
-                  (jobSalary >= salary[0] && jobSalary <= salary[1])
-                )
-              }
-            )
-            .map((job) => (
-              <JobCard
-                logo={assets[job.logo]}
-                time={job.time}
-                title={job.title}
-                experience={job.experience}
-                jobType={job.jobType}
-                salary={job.salary}
-                description={job.description}
-                onApplyClick={() => alert(`Applied to ${job.title}`)}
-              />
-            ))
-          }
+          {filteredJobs.map((job) => (
+            <JobCard
+              key={job.title + job.location}
+              logo={assets[job.logo]}
+              time={job.time}
+              title={job.title}
+              experience={job.experience}
+              jobType={job.jobType}
+              salary={job.salary}
+              description={job.description}
+              onApplyClick={() => alert(`Applied to ${job.title}`)}
+            />
+          ))}
         </div>
       </div>
     </div>

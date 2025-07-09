@@ -4,11 +4,32 @@ import { assets } from "../assets/assets";
 import { Link } from "react-router-dom";
 import RangeSlider from "./Slider";
 
-const LOCATION_OPTIONS = ["Preferred Location", "Remote", "Chennai", "Hyderabad", "Bangalore"];
-const JOB_TYPE_OPTIONS = ["Job Type", "FullTime", "PartTime", "Contract", "Internship"];
+const LOCATION_OPTIONS = [
+  "Preferred Location",
+  "Remote",
+  "Chennai",
+  "Hyderabad",
+  "Bangalore",
+];
+const JOB_TYPE_OPTIONS = [
+  "Job Type",
+  "FullTime",
+  "PartTime",
+  "Contract",
+  "Internship",
+];
 
-
-const Navbar = ({ onCreateJobClick, jobType, setJobType, locationType, setLocationType, salary, setSalary }) => {
+const Navbar = ({
+  onCreateJobClick,
+  jobType,
+  setJobType,
+  locationType,
+  setLocationType,
+  salary,
+  setSalary,
+  searchTerm,
+  setSearchTerm,
+}) => {
   const [jobTypeOpen, setJobTypeOpen] = useState(false);
   const [locationTypeOpen, setlocationTypeOpen] = useState(false);
 
@@ -60,7 +81,7 @@ const Navbar = ({ onCreateJobClick, jobType, setJobType, locationType, setLocati
             </div>
             <div className="createjobbox">
               <button onClick={onCreateJobClick} className="createjobinner">
-                <span className="create-text">Create Job</span>
+                <span className="create-text">Create Jobs</span>
                 <span className="login-text">Login</span>
               </button>
             </div>
@@ -80,6 +101,8 @@ const Navbar = ({ onCreateJobClick, jobType, setJobType, locationType, setLocati
                 className="searchBar"
                 type="text"
                 placeholder="Search By Job Title, Role"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 default="Search By Job Title, Role"
               />
             </div>
@@ -158,7 +181,6 @@ const Navbar = ({ onCreateJobClick, jobType, setJobType, locationType, setLocati
 
           {/* SALARY */}
 
-
           {/* SALARY */}
           <div className="salarySlider">
             <div>
@@ -171,11 +193,10 @@ const Navbar = ({ onCreateJobClick, jobType, setJobType, locationType, setLocati
           <div className="filter-item salary-slider">
             <div className="verticallineSalary"></div>
             <div className="salary-labelAmount">
-              ₹{(salary[0] / 1000).toFixed(0)}k - ₹{(salary[1] / 1000).toFixed(0)}k
+              ₹{(salary[0] / 1000).toFixed(0)}k - ₹
+              {(salary[1] / 1000).toFixed(0)}k
             </div>
           </div>
-
-
         </div>
       </div>
     </header>

@@ -644,8 +644,8 @@
 
   width: 126px;
   height: 22px;
-  left: 111px;
-  top: -4px;
+  left: 119px;
+  top: 9px;
 
   font-family: "Satoshi-Variable";
   font-style: normal;
@@ -657,21 +657,21 @@
   color: #222222;
 }
 .salary-labelText {
-  top: -14px;
-  position: relative;
-  left: 111px;
+  top: 20px;
+  position: absolute;
+  left: 1098px;
   font-family: "Satoshi-Variable";
   font-weight: 600;
 }
 
 .salary-labelAmount {
   /* Salary Per Month */
-  position: relative;
+  position: absolute;
 
   width: 126px;
   height: 22px;
-  left: 157px;
-  top: -26px;
+  left: 1274px;
+  top: 21px;
 
   font-family: "Satoshi-Variable";
   font-style: normal;
