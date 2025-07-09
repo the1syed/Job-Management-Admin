@@ -24,8 +24,8 @@ font-size: 20px;
 .createjob-modal {
 width: 848px;
 height: 779px;
-top: 117px;
-    left: 820px;
+top: -180px;
+    left: -3px;
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.13);
@@ -34,9 +34,10 @@ top: 117px;
   width: 95vw;
   font-family: 'Inter', sans-serif;
   z-index: 1001;
-  position: absolute;
+  position: relative;
   border: 2px solid #00aaff22;
   padding: 34px;
+  margin: auto;
 }
 
 .createjob-modal h2 {
